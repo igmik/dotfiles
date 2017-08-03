@@ -1,0 +1,43 @@
+emacs*bitmapIcon:	on
+emacs*Background:	wheat
+emacs*Foreground:	black
+emacs*Geometry:	81x55-50-60
+emacs*Font:	10x20
+xterm*Background:       #1A1A1A
+xterm*Foreground:       #FFFEF9
+xterm*appcursorDefault: true
+xterm*appkeypadDefault: true
+xterm*internalBorder: 5
+xterm*saveLines: 1000
+xterm*scrollBar: true
+##xterm*Font: 10x20	
+xterm*faceName: Monospace
+##xterm*faceName: Hack-Regular
+xterm*faceSize: 11
+xterm*color0: #000000
+xterm*color1: #ED791A 
+xterm*color2: #87E084
+xterm*color3: #FFFF54
+xterm*color4: #0E78DB
+xterm*color5: #FFACAC
+xterm*color6: #18B2B2
+xterm*color7: #B2B2B2
+xterm*color8: #000000
+xterm*color9: #ED791A
+xterm*color10:#87E084
+xterm*color11:#FFFF54
+xterm*color12:#0E78DB
+xterm*color13:#FFACAC
+xterm*color14:#18B2B2
+xterm*color15:#B2B2B2
+##xterm*color8: #686868
+##xterm*color9: #FF5454
+##xterm*color10:#54FF54
+##xterm*color11:#FFFF54
+##xterm*color12:#5454FF
+##xterm*color13:#FF54FF
+##xterm*color14:#54FFFF
+##xterm*color15:#FFFFFF
+xterm*boldMode: false
+xterm*colorBDMode: true
+xterm*colorBD: rgb:fc/fc/fc
