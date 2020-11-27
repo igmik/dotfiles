@@ -2,7 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/programming/imikhale/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -14,12 +14,24 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+" Tree
+""Plugin 'nerdtree'
+""Plugin 'vim-buffergator'
 
+Plugin 'ctrlp.vim'
+Plugin 'supertab'
+Plugin 'taglist'
 
+Plugin 'vim-python/python-syntax'
+Plugin 'Yggdroot/indentLine'
+Plugin 'fatih/vim-go'
+" HTML5 plugin
+Plugin 'othree/html5.vim'
+
+Plugin 'vim-syntastic/syntastic'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-
 
 
 " ***************************************************************
@@ -56,6 +68,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline_theme = 'bubblegum'
 
+" Truncate the full directory path
 function! StatusLineCWD()
   let l:pwd = getcwd()
   return substitute(fnamemodify(l:pwd, ':~'), '\(\~\?/[^/]*/\).*\(/.\{20\}\)', '\1...\2', '')
@@ -67,32 +80,44 @@ let g:airline_section_b = airline#section#create_left(['cwd'])
 let g:airline_section_c = airline#section#create_left(['%f'])
 
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#exclude_preview = 0
-let g:airline#extensions#tabline#show_tab_type = 1
+""let g:airline#extensions#tabline#enabled = 1
+""let g:airline#extensions#tabline#switch_buffers_and_tabs = 0:q
 
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-  nmap <M-1> <Plug>AirlineSelectTab1
-  nmap <M-2> <Plug>AirlineSelectTab2
-  nmap <M-3> <Plug>AirlineSelectTab3
-  nmap <M-4> <Plug>AirlineSelectTab4
-  nmap <M-5> <Plug>AirlineSelectTab5
-  nmap <M-6> <Plug>AirlineSelectTab6
-  nmap <M-7> <Plug>AirlineSelectTab7
-  nmap <M-8> <Plug>AirlineSelectTab8
-  nmap <M-9> <Plug>AirlineSelectTab9
-  nmap <leader>- <Plug>AirlineSelectPrevTab
-  nmap <leader>+ <Plug>AirlineSelectNextTab
+""let g:airline#extensions#tabline#exclude_preview = 0
+""let g:airline#extensions#tabline#show_tab_type = 1
+""
+""let g:airline#extensions#tabline#buffer_idx_mode = 1
+""  nmap <M-1> <Plug>AirlineSelectTab1
+""  nmap <M-2> <Plug>AirlineSelectTab2
+""  nmap <M-3> <Plug>AirlineSelectTab3
+""  nmap <M-4> <Plug>AirlineSelectTab4
+""  nmap <M-5> <Plug>AirlineSelectTab5
+""  nmap <M-6> <Plug>AirlineSelectTab6
+""  nmap <M-7> <Plug>AirlineSelectTab7
+""  nmap <M-8> <Plug>AirlineSelectTab8
+""  nmap <M-9> <Plug>AirlineSelectTab9
+""  nmap <leader>- <Plug>AirlineSelectPrevTab
+""  nmap <leader>+ <Plug>AirlineSelectNextTab
+""
+""let g:airline#extensions#tabline#fnamemod = ':p:.'
 
-let g:airline#extensions#tabline#fnamemod = ':p:.'
 
+" Go will try to complain about vim version
+let g:go_version_warning = 0
+let g:go_highlight_types = 0
+let g:go_highlight_fields = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 0
+let g:go_highlight_operators = 0
+let g:go_highlight_extra_types = 0
 
+let g:python_highlight_all = 1
 
 " ***************************************************************
 " ***************************************************************
 
+" CTRLP change default command from file to buf
+""let g:ctrlp_cmd = 'CtrlPBuffer'
 
 
 
@@ -117,7 +142,7 @@ let s:extfname = expand("%:e")
 "endif
 
 " Syntax Hilighting
-syntax on
+""syntax on
 
 set nowrap
 
@@ -162,13 +187,19 @@ filetype plugin on
 filetype indent on
 filetype plugin indent on
 
+" Enable HTML autocomplete
+set omnifunc=syntaxcomplete#Complete
+
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Set to auto write when a make was called
+set autowrite
+
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = ";"
+let g:mapleader = ";"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -241,13 +272,14 @@ set tm=500
 syntax enable
 
 colorscheme koehler
+set t_Co=256
 set background=dark
 
 " Set extra options
 if has("gui_running")
     set guioptions-=T
     set guioptions+=e
-    set t_Co=256
+""    set t_Co=256
     set guitablabel=%M\ %t
     ""set guifont=Monospace\ 11
     set guifont=DejaVu\ Sans\ Mono\ 11
@@ -274,16 +306,16 @@ if has("gui_running")
 
     hi Pmenu        guifg=#FFFEF9 guibg=#1A1A1A gui=reverse
 
-else
-
-    hi Constant     term=underline ctermfg=darkmagenta
-    hi Comment      term=bold ctermfg=darkcyan
-    hi Type         term=underline ctermfg=darkgreen
-    hi PreProc      term=underline cterm=bold ctermfg=blue
-    hi Statement    term=bold ctermfg=darkyellow
-    hi NonText      term=bold ctermfg=darkred
-    hi Directory    term=bold cterm=bold ctermfg=blue
-
+""else
+""
+""    hi Constant     term=underline ctermfg=darkmagenta
+""    hi Comment      term=bold ctermfg=darkcyan
+""    hi Type         term=underline ctermfg=darkgreen
+""    hi PreProc      term=underline cterm=bold ctermfg=blue
+""    hi Statement    term=bold ctermfg=darkyellow
+""    hi NonText      term=bold ctermfg=darkred
+""    hi Directory    term=bold cterm=bold ctermfg=blue
+""
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -388,6 +420,7 @@ autocmd BufReadPost *
 set viminfo^=%
 
 
+" This now is defined in vimairline
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
@@ -395,24 +428,24 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %{getcwd()}
-set statusline+=%=\
-set statusline+=%1*
-set statusline+=%=%4.(%c\ %)
-set statusline+=%*
-set statusline+=%=%2.(\ %l/%L\ %)
-
-" Color
-hi User1 ctermbg=green ctermfg=black guibg=#87E084   guifg=black
-
-hi StatusLine ctermbg=white ctermfg=black guibg=gray guifg=black gui=none
-if has("gui_running")
-    au InsertEnter * hi StatusLine term=reverse ctermbg=green gui=none guibg=#87E084 guifg=black
-    au InsertLeave * hi StatusLine term=reverse ctermbg=white gui=none guibg=gray guifg=black
-else
-    au InsertEnter * hi StatusLine term=reverse ctermbg=green gui=none guibg=#87E084 guifg=black
-    au InsertLeave * hi StatusLine term=reverse ctermbg=white gui=none guibg=gray guifg=black
-endif
+""set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %{getcwd()}
+""set statusline+=%=\
+""set statusline+=%1*
+""set statusline+=%=%4.(%c\ %)
+""set statusline+=%*
+""set statusline+=%=%2.(\ %l/%L\ %)
+""
+""" Color
+""hi User1 ctermbg=green ctermfg=black guibg=#87E084   guifg=black
+""
+""hi StatusLine ctermbg=white ctermfg=black guibg=gray guifg=black gui=none
+""if has("gui_running")
+""    au InsertEnter * hi StatusLine term=reverse ctermbg=green gui=none guibg=#87E084 guifg=black
+""    au InsertLeave * hi StatusLine term=reverse ctermbg=white gui=none guibg=gray guifg=black
+""else
+""    au InsertEnter * hi StatusLine term=reverse ctermbg=green gui=none guibg=#87E084 guifg=black
+""    au InsertLeave * hi StatusLine term=reverse ctermbg=white gui=none guibg=gray guifg=black
+""endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -601,3 +634,8 @@ inoremap <silent><C-Left> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar
 inoremap <silent><C-Right> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
 vnoremap <silent><C-Left> :<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>v`>o
 vnoremap <silent><C-Right> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>v`<o
+
+nmap <C-l> <C-Right>
+nmap <C-h> <C-Left>
+nmap <C-k> <C-b>
+nmap <C-j> <C-f>

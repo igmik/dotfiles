@@ -15,13 +15,21 @@ xterm*faceName: Monospace
 ##xterm*faceName: Hack-Regular
 xterm*faceSize: 11
 xterm*color0: #000000
+##xterm*color0: #34495e
 xterm*color1: #ED791A 
+##xterm*color1: #e74c3c
 xterm*color2: #87E084
+##xterm*color2: #2ecc71
 xterm*color3: #FFFF54
+##xterm*color3: #f1c40f
 xterm*color4: #0E78DB
+##xterm*color4: #3498db
 xterm*color5: #FFACAC
+##xterm*color5: #9b59b6
 xterm*color6: #18B2B2
+##xterm*color6: #2aa198
 xterm*color7: #B2B2B2
+##xterm*color7: #ecf0f1
 xterm*color8: #000000
 xterm*color9: #ED791A
 xterm*color10:#87E084
